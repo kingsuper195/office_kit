@@ -2,6 +2,9 @@ const electron = require('electron');
 const ipc = electron.ipcRenderer;
 const $ = require('jquery');
 
+
+let fEd
+
 const quill = new Quill('#editor', {
     theme: 'snow'
 });
@@ -22,13 +25,36 @@ $("#fileButton").on("click", () => {
 
 });
 
-$("#saveFileButton").on("click", () => {
-    ipc.send('saveFileDialog', quill.getSemanticHTML());
+$("#saveFileButton").on("click", async () => {
+    fEd = await ipc.invoke('saveFileDialog', quill.getSemanticHTML());
+
+    $("#fed").text(fEd);
+});
+
+$("#saveFileAsButton").on("click", async () => {
+    fEd = await ipc.invoke('saveFileAsDialog', quill.getSemanticHTML());
+
+    $("#fed").text(fEd);
 });
 
 $("#openFileButton").on("click", async () => {
     let data = await ipc.invoke("openFileDialog");
-    console.log(data);
-    quill.root.innerHTML=data;
+    console.log(data.data);
+    quill.root.innerHTML = data.data;
+    fEd = data.fed
+
+    $("#fed").text(fEd);
 });
 
+$("#content").on("click", () => {
+    document.getElementById("fileMenu").style.display = "none";
+})
+
+
+$("#minBtn").on("click", () => {
+    ipc.send('minimize')
+});
+
+$("#maxBtn").on("click", () => {
+    ipc.send('maximize')
+});

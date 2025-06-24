@@ -16,7 +16,7 @@
 
 <body>
     <div class="titlebar">
-        Docs
+        Docs &nbsp;<span id="fed"></span>
         <div>
             <button class="menuButton" id="fileButton">File</button>
             <ul id="fileMenu" class="menuCollapse">
@@ -26,11 +26,19 @@
                 <li>
                     <button id="openFileButton" class="menuItem">Open File</button>
                 </li>
+
+                <li>
+                    <button id="saveFileAsButton" class="menuItem">Save File As</button>
+                </li>
             </ul>
         </div>
-        <button id="closeBtn">X</button>
+        <button class="xBtn" id="minBtn">-</button>
+        <button class="xBtn" id="maxBtn">&#9633</button>
+        <button class="xBtn" id="closeBtn">X</button>
     </div>
-    <div id="editor"></div>
+    <div id="content">
+        <div id="editor"></div>
+    </div>
     <script src="index.js"></script>
 </body>
 
