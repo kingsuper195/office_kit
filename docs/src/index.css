@@ -1,18 +1,6 @@
-ul {
-    list-style-type: none;
-    margin: 2px;
-    padding: 0;
-    background-color: skyblue;
-}
-
 body {
     margin: 0;
     font-family: sans-serif;
-}
-
-li {
-    display: inline;
-    padding: 3px;
 }
 
 .titlebar {
@@ -22,7 +10,6 @@ li {
     display: flex;
     align-items: center;
     background: skyblue;
-    color: black;
     border-bottom: 1px grey;
 }
 
@@ -35,6 +22,54 @@ li {
     width: 25px;
 }
 
-#closeBtn:hover{
+#closeBtn:hover {
     background-color: #FFFFFF99;
+}
+
+.menuButton {
+    background-color: #4440;
+    padding: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: block;
+    border:none;
+}
+
+.menuItem {
+    background-color: #444;
+    color: white;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    border-radius: 0px;
+    display: block;
+}
+
+.menuItem:hover {
+    background-color: skyblue;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+
+
+.menuButton:hover {
+    background-color: #0004;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.menuCollapse {
+    display: none;
+    position: fixed;
+    width: fit-content;
+    height: fit-content;
+    z-index: 100000;
+    list-style-type: none;
+    padding: 5px;
+    background-color: #444;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    margin: 5px 0 0 5px;
 }

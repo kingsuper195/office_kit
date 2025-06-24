@@ -15,12 +15,22 @@
 </head>
 
 <body>
-    <div class="titlebar">Docs <button id="closeBtn">X</button></div>
-    <div id="editor">
-        <p>Hello World!</p>
-        <p>Some initial <strong>bold</strong> text</p>
-        <p><br /></p>
+    <div class="titlebar">
+        Docs
+        <div>
+            <button class="menuButton" id="fileButton">File</button>
+            <ul id="fileMenu" class="menuCollapse">
+                <li>
+                    <button id="saveFileButton" class="menuItem">Save File</button>
+                </li>
+                <li>
+                    <button id="openFileButton" class="menuItem">Open File</button>
+                </li>
+            </ul>
+        </div>
+        <button id="closeBtn">X</button>
     </div>
+    <div id="editor"></div>
     <script src="index.js"></script>
 </body>
 
