@@ -13,6 +13,7 @@
     "electron": "^37.0.0-beta.9"
   },
   "dependencies": {
-    "bootswatch": "^5.3.6"
+    "bootswatch": "^5.3.6",
+    "quill": "^2.0.3"
   }
 }

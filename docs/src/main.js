@@ -1,14 +1,22 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 
 const createWindow = () => {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600
-    });
+  const win = new BrowserWindow({
+    // remove the default titlebar
+    titleBarStyle: 'hidden',
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
 
-    win.loadFile('src/index.html');
+  win.loadFile('src/index.html');
 }
 
 app.whenReady().then(() => {
   createWindow();
-})
+});
+
+ipcMain.on('close', () => {
+  app.quit();
+});
