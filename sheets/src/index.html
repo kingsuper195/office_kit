@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <link href="./index.css" rel="stylesheet" />
+    <link href="../node_modules/quill/dist/quill.snow.css" rel="stylesheet" />
+    <script src="../node_modules/quill/dist/quill.js"></script>
+    <title>Office Kit Sheets</title>
+
+</head>
+
+<body>
+    <div class="titlebar">
+        Sheets &nbsp;<span id="fed"></span>
+        <div>
+            <button class="menuButton" id="fileButton">File</button>
+            <ul id="fileMenu" class="menuCollapse">
+                <li>
+                    <button id="saveFileButton" class="menuItem">Save File</button>
+                </li>
+                <li>
+                    <button id="openFileButton" class="menuItem">Open File</button>
+                </li>
+
+                <li>
+                    <button id="saveFileAsButton" class="menuItem">Save File As</button>
+                </li>
+            </ul>
+        </div>
+        <button class="xBtn" id="minBtn">-</button>
+        <button class="xBtn" id="maxBtn">&#9633</button>
+        <button class="xBtn" id="closeBtn">X</button>
+    </div>
+    <div id="content">
+        <div id="editor"></div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
