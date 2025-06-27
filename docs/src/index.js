@@ -2,7 +2,6 @@ const electron = require('electron');
 const ipc = electron.ipcRenderer;
 const $ = require('jquery');
 
-
 let fEd = 'New File';
 
 let saved = true;
@@ -82,12 +81,32 @@ $("#maxBtn").on("click", () => {
 });
 
 quill.on('text-change', (delta, oldDelta, source) => {
-    if (source == 'api') {
-        console.log('An API call triggered this change.');
-    } else if (source == 'user') {
-        console.log('A user action triggered this change.');
-    }
     saved = false;
     $("#fed").text(fEd + (saved ? "" : "*"));
 
+});
+
+$(document).on("keyup", async (e) => {
+    if (e.ctrlKey && e.key == "s") {
+        fEd = await ipc.invoke('saveFileDialog', quill.getSemanticHTML());
+        saved = true;
+        $("#fed").text(fEd + (saved ? "" : "*"));
+    } else if (e.ctrlKey && e.shiftKey && e.key == "s") {
+        fEd = await ipc.invoke('saveFileAsDialog', quill.getSemanticHTML());
+        saved = true;
+        $("#fed").text(fEd + (saved ? "" : "*"));
+    } else if (e.ctrlKey && e.key == "o") {
+        if (!saved) {
+            let ans = await prompt("Are you sure you would like to open another file, this will lose changes to the current file!");
+            if (ans) {
+                return false;
+            }
+        }
+        let data = await ipc.invoke("openFileDialog");
+        console.log(data.data);
+        quill.root.innerHTML = data.data;
+        fEd = data.fed
+        saved = true;
+        $("#fed").text(fEd + (saved ? "" : "*"));
+    }
 });

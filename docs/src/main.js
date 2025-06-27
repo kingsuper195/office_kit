@@ -1,6 +1,6 @@
 const { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem } = require('electron');
-const fs = require("node:fs")
-
+const fs = require("node:fs");
+const $ = require("jquery");
 let win
 
 let fed
@@ -113,4 +113,3 @@ ipcMain.handle('prompt', async (event, data) => {
   let ans = dialog.showMessageBoxSync(null, { type: 'question', message: data, buttons: ["Yes", "No"], defaultId: 2 });
   return ans == 1;
 });
-
