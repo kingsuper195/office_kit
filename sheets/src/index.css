@@ -13,7 +13,7 @@ body {
     padding-right: 2px;
     display: flex;
     align-items: center;
-    background: skyblue;
+    background: lightgreen;
     border-bottom: 1px grey;
     -webkit-user-select: none;
     -webkit-app-region: drag;
@@ -89,4 +89,19 @@ body {
 #content {
     height: calc(100% - 30px);
 
+}
+
+td div {
+    border: 1px solid black;
+    min-width: 7em;
+    max-width: 7em;
+    margin: 0;
+    text-wrap: nowrap;
+    overflow-x: hidden;
+    min-height: 1.1em;
+    max-height: 1.1em;
+}
+
+#edit {
+    width:100%;
 }
