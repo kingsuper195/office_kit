@@ -105,3 +105,6 @@ td div {
 #edit {
     width:100%;
 }
+#editor {
+    max-height: 100%;
+}

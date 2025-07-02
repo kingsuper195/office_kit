@@ -3,6 +3,7 @@ const ipc = electron.ipcRenderer;
 const $ = require('jquery');
 
 let fEd = 'New File';
+let editing = false;
 
 let saved = true;
 $("#fed").text(fEd + (saved ? "" : "*"));
@@ -18,16 +19,17 @@ function render() {
         console.log(row);
         const rowJ = $('<tr>');
         for (let cell = 0; cell < sheet[row].length; cell++) {
-            const cellJ = $(`<td><div class="ininput" id="${row.toString()+"x"+cell.toString()}" contenteditable="true">${sheet[row][cell]}</div></td>`);
+            const cellJ = $(`<td><div class="ininput" id="${row.toString() + "x" + cell.toString()}" contenteditable="true">${sheet[row][cell]}</div></td>`);
             rowJ.append(cellJ);
         }
         table.append(rowJ);
 
     }
+    $("#editor").append(table);
+
 }
 render();
 
-$("#editor").append(table);
 async function closeApp(e) {
     if (!saved) {
         let ans = await prompt("Are you sure you would like to quit, this will lose changes to the current file!");
@@ -45,6 +47,11 @@ let prompt = async function (text) {
     return ans;
 }
 
+$(".ininput").on("click", (event) => {
+    editing = event.target.id;
+
+});
+
 $("#closeBtn").on("click", closeApp);
 
 $("#fileButton").on("click", () => {
@@ -60,6 +67,14 @@ $("#content").on("click", () => {
     document.getElementById("fileMenu").style.display = "none";
 })
 
+
+$(".ininput").on("focus", (event)=>{
+    editing=event.target.id;
+})
+
+$(".ininput").on("focusout",()=>{
+    editing=false;
+});
 
 $("#minBtn").on("click", () => {
     ipc.send('minimize')
