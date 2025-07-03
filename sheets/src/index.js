@@ -4,6 +4,7 @@ const $ = require('jquery');
 
 let fEd = 'New File';
 let editing = false;
+let lastFocus = null;
 
 let saved = true;
 $("#fed").text(fEd + (saved ? "" : "*"));
@@ -70,10 +71,29 @@ $("#content").on("click", () => {
 
 $(".ininput").on("focus", (event)=>{
     editing=event.target.id;
-})
+    lastFocus=event.target;
+    console.log(event.target.textContent);
+    $('#edit').val(event.target.textContent);
+});
 
-$(".ininput").on("focusout",()=>{
-    editing=false;
+$(".ininput").on("focusout", (event)=>{
+    console.log(event);
+});
+
+$(".ininput").on("keyup", (event)=>{
+    $('#edit').val(event.target.textContent);
+});
+
+$("#content").on("focus",(event)=>{
+    if(event.target.id=="#content") {
+        editing=false;
+        lastFocus = null;
+        $('#edit').val('');
+    }
+});
+
+$('#edit').on("keyup", (event)=>{
+    if(lastFocus) lastFocus.textContent = event.target.value;
 });
 
 $("#minBtn").on("click", () => {
