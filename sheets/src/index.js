@@ -16,10 +16,16 @@ let sheet = [
 ];
 function render() {
     const table = $('<table>');
-    for (let row = 0; row < sheet.length; row++) {
+    for (let row = 0; row < ((sheet.length < 100) ? 100 : sheet.length); row++) {
         console.log(row);
         const rowJ = $('<tr>');
-        for (let cell = 0; cell < sheet[row].length; cell++) {
+        if (!sheet[row]) {
+            sheet[row] = [""];
+        }
+        for (let cell = 0; cell < ((sheet[row].length < 100) ? 100 : sheet[row].length); cell++) {
+            if (!sheet[row][cell]) {
+                sheet[row][cell] = "";
+            }
             const cellJ = $(`<td><div class="ininput" id="${row.toString() + "x" + cell.toString()}" contenteditable="true">${sheet[row][cell]}</div></td>`);
             rowJ.append(cellJ);
         }
@@ -69,31 +75,19 @@ $("#content").on("click", () => {
 })
 
 
-$(".ininput").on("focus", (event)=>{
-    editing=event.target.id;
-    lastFocus=event.target;
+$(".ininput").on("focus", (event) => {
+    editing = event.target.id;
+    lastFocus = event.target;
     console.log(event.target.textContent);
     $('#edit').val(event.target.textContent);
 });
 
-$(".ininput").on("focusout", (event)=>{
-    console.log(event);
-});
-
-$(".ininput").on("keyup", (event)=>{
+$(".ininput").on("keyup", (event) => {
     $('#edit').val(event.target.textContent);
 });
 
-$("#content").on("focus",(event)=>{
-    if(event.target.id=="#content") {
-        editing=false;
-        lastFocus = null;
-        $('#edit').val('');
-    }
-});
-
-$('#edit').on("keyup", (event)=>{
-    if(lastFocus) lastFocus.textContent = event.target.value;
+$('#edit').on("keyup", (event) => {
+    if (lastFocus) lastFocus.textContent = event.target.value;
 });
 
 $("#minBtn").on("click", () => {
@@ -126,4 +120,10 @@ $(document).on("keyup", async (e) => {
         saved = true;
         $("#fed").text(fEd + (saved ? "" : "*"));
     }
+});
+
+$(() => {
+    editing = "0x0";
+    lastFocus = $("#0x0");
+    $("#0x0").focus();
 });
