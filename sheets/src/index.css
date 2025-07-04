@@ -118,6 +118,7 @@ td div {
     width: 100%;
     position: fixed;
     height: 1em;
+    z-index: -1;
 }
 
 #editor {

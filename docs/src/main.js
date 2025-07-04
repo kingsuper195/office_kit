@@ -54,15 +54,15 @@ ipcMain.handle('saveFileDialog', async (event, data) => {
     fs.writeFileSync(fed, data);
     return fed;
   }
-  let path = await dialog.showSaveDialog({ defaultPath: "New File.htmls", filters: [{ name: 'HTML Snippet', extensions: ['htmls'] }] });
+  let path = await dialog.showSaveDialog({ defaultPath: "New File.okd", filters: [{ name: 'Office Kit Docs', extensions: ['okd'] }] });
   if (path.canceled) {
     console.log("File save canceled");
     return;
   }
-  if (path.filePath.endsWith('.htmls')) {
+  if (path.filePath.endsWith('.okd')) {
     fed = path.filePath
   } else {
-    fed = path.filePath + ".htmls"
+    fed = path.filePath + ".okd"
   }
   fs.writeFileSync(fed, data);
   console.log("saved");
@@ -70,15 +70,15 @@ ipcMain.handle('saveFileDialog', async (event, data) => {
 });
 
 ipcMain.handle('saveFileAsDialog', async (event, data) => {
-  let path = await dialog.showSaveDialog({ filters: [{ name: 'HTML Snippet', extensions: ['htmls'] }] });
+  let path = await dialog.showSaveDialog({ filters: [{ name: 'Office Kit Docs', extensions: ['okd'] }] });
   if (path.canceled) {
     console.log("File save canceled");
     return fed;
   }
-  if (path.filePath.endsWith('.htmls')) {
+  if (path.filePath.endsWith('.okd')) {
     fed = path.filePath
   } else {
-    fed = path.filePath + ".htmls"
+    fed = path.filePath + ".okd"
   }
   fs.writeFileSync(fed, data);
   console.log("saved");
@@ -86,7 +86,7 @@ ipcMain.handle('saveFileAsDialog', async (event, data) => {
 });
 
 ipcMain.handle('openFileDialog', async (event, data) => {
-  let path = await dialog.showOpenDialog({ filters: [{ name: 'HTML Snippet', extensions: ['htmls'] }], properties: ['openFile'] });
+  let path = await dialog.showOpenDialog({ filters: [{ name: 'Office Kit Docs', extensions: ['okd'] }], properties: ['openFile'] });
   if (path.canceled) {
     console.log("File open canceled");
     return;

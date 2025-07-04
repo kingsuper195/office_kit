@@ -65,3 +65,50 @@ ipcMain.handle('prompt', async (event, data) => {
   let ans = dialog.showMessageBoxSync(null, { type: 'question', message: data, buttons: ["Yes", "No"], defaultId: 2 });
   return ans == 1;
 });
+
+ipcMain.handle('saveFileDialog', async (event, data) => {
+  if (fed) {
+    fs.writeFileSync(fed, JSON.stringify(data));
+    return fed;
+  }
+  let path = await dialog.showSaveDialog({ defaultPath: "New File.oks", filters: [{ name: 'Office Kit Sheet', extensions: ['oks'] }] });
+  if (path.canceled) {
+    console.log("File save canceled");
+    return;
+  }
+  if (path.filePath.endsWith('.oks')) {
+    fed = path.filePath
+  } else {
+    fed = path.filePath + ".oks"
+  }
+  fs.writeFileSync(fed, JSON.stringify(data));
+  console.log("saved");
+  return fed;
+});
+
+ipcMain.handle('saveFileAsDialog', async (event, data) => {
+  let path = await dialog.showSaveDialog({ filters: [{ name: 'Office Kit Sheets', extensions: ['oks'] }] });
+  if (path.canceled) {
+    console.log("File save canceled");
+    return fed;
+  }
+  if (path.filePath.endsWith('.oks')) {
+    fed = path.filePath
+  } else {
+    fed = path.filePath + ".oks"
+  }
+  fs.writeFileSync(fed, JSON.stringify(data));
+  console.log("saved");
+  return fed;
+});
+
+ipcMain.handle('openFileDialog', async (event, data) => {
+  let path = await dialog.showOpenDialog({ filters: [{ name: 'Office Kit Sheets', extensions: ['oks'] }], properties: ['openFile'] });
+  if (path.canceled) {
+    console.log("File open canceled");
+    return;
+  }
+  fed = path.filePaths[0];
+  let result = JSON.parse(fs.readFileSync(path.filePaths[0], "utf-8"));
+  return { data: result, fed };
+});
