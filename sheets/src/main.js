@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, Menu, MenuItem, globalShortcut } = require('electron');
 const fs = require("node:fs");
 let win
 
@@ -42,6 +42,12 @@ app.whenReady().then(() => {
     }
 
     menu.popup();
+  });
+  const ret = globalShortcut.register('CommandOrControl+W', () => {
+    console.log('CommandOrControl+W is pressed');
+  });
+  const ret2 = globalShortcut.register('CommandOrControl+Q', () => {
+    win.webContents.send("tryQuit");
   });
 });
 

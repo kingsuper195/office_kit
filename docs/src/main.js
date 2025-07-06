@@ -43,6 +43,12 @@ app.whenReady().then(() => {
 
     menu.popup();
   });
+  const ret = globalShortcut.register('CommandOrControl+W', () => {
+      console.log('CommandOrControl+W is pressed');
+    });
+    const ret2 = globalShortcut.register('CommandOrControl+Q', () => {
+      win.webContents.send("tryQuit");
+    });
 });
 
 ipcMain.on('close', () => {

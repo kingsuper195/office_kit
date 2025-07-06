@@ -39,6 +39,10 @@ $("#fileButton").on("click", () => {
 
 });
 
+ipc.on("tryQuit", () => {
+    closeApp();
+});
+
 $("#saveFileButton").on("click", async () => {
     fEd = await ipc.invoke('saveFileDialog', quill.getSemanticHTML());
     saved = true;

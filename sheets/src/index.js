@@ -9,11 +9,7 @@ let lastFocus = null;
 let saved = true;
 $("#fed").text(fEd + (saved ? "" : "*"));
 
-let sheet = [
-    ["hello sweet wonderful world", "world"],
-    ["goodbye", "world"],
-    ["", "world"]
-];
+let sheet = [];
 function render() {
     $("#mntbl").remove();
     const table = $('<table id="mntbl">');
@@ -58,6 +54,10 @@ async function closeApp(e) {
 
 }
 
+ipc.on("tryQuit", () => {
+    closeApp();
+});
+
 let prompt = async function (text) {
     let ans = await ipc.invoke('prompt', text);
     console.log(ans)
@@ -93,13 +93,13 @@ $(".ininput").on("focus", (event) => {
 
 $(".ininput").on("keyup", (event) => {
     $('#edit').val(event.target.textContent);
-    saved=false;
+    saved = false;
     $("#fed").text(fEd + (saved ? "" : "*"));
 });
 
 $('#edit').on("keyup", (event) => {
     if (lastFocus) lastFocus.textContent = event.target.value;
-    saved=false;
+    saved = false;
     $("#fed").text(fEd + (saved ? "" : "*"));
 });
 
